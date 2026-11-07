@@ -1,0 +1,78 @@
+## lb01
+### hostname
+monitored
+### ip -br addr
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+ens160           UP             192.168.100.20/24 
+ens192           UP             192.168.13.138/24 fe80::bffe:c97e:c7c2:43ae/64 
+### ip route
+default via 192.168.13.2 dev ens192 proto dhcp src 192.168.13.138 metric 101 
+192.168.13.0/24 dev ens192 proto kernel scope link src 192.168.13.138 metric 101 
+192.168.100.0/24 dev ens160 proto kernel scope link src 192.168.100.20 metric 100 
+### release
+Red Hat Enterprise Linux release 9.8 (Plow)
+### uname
+5.14.0-687.54.1.el9_8.x86_64
+### nproc
+2
+### lscpu
+CPU(s):                                  2
+Model name:                              13th Gen Intel(R) Core(TM) i7-13620H
+### free -h
+               total        used        free      shared  buff/cache   available
+Mem:           1.0Gi       523Mi        66Mi       2.0Mi       587Mi       484Mi
+Swap:          2.0Gi       2.0Mi       2.0Gi
+### df -h
+Filesystem             Size  Used Avail Use% Mounted on
+devtmpfs               472M     0  472M   0% /dev
+tmpfs                  505M     0  505M   0% /dev/shm
+tmpfs                  202M  4.5M  198M   3% /run
+efivarfs               256K   57K  195K  23% /sys/firmware/efi/efivars
+/dev/mapper/rhel-root   22G  6.1G   16G  29% /
+/dev/nvme0n1p2         960M  476M  485M  50% /boot
+/dev/nvme0n1p1         599M  7.7M  592M   2% /boot/efi
+tmpfs                  101M   36K  101M   1% /run/user/1000
+### selinux
+Enforcing
+### firewalld
+active
+public
+public (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: ens160 ens192
+  sources: 
+  services: cockpit dhcpv6-client http ssh
+  ports: 
+  protocols: 
+  forward: yes
+  masquerade: no
+  forward-ports: 
+  source-ports: 
+  icmp-blocks: 
+  rich rules: 
+### docker
+sudo: docker: command not found
+sudo: docker: command not found
+### subscription
+Consumer profile "1674ab66-fad7-41b0-adde-5461da13270d" has been deleted from the server. You can use command clean or unregister to remove local profile.
+### dnf repolist
+repo id                          repo name
+rhel-9-for-x86_64-appstream-rpms Red Hat Enterprise Linux 9 for x86_64 - AppStream (RPMs)
+rhel-9-for-x86_64-baseos-rpms    Red Hat Enterprise Linux 9 for x86_64 - BaseOS (RPMs)
+### curl registry
+HTTP/2 401 
+### sshd_config.d
+ls: cannot open directory '/etc/ssh/sshd_config.d/': Permission denied
+### default target
+multi-user.target
+### listening
+State  Recv-Q Send-Q Local Address:Port Peer Address:PortProcess                                                                         
+LISTEN 0      4096       127.0.0.1:631       0.0.0.0:*    users:(("cupsd",pid=999,fd=8))                                                 
+LISTEN 0      100        127.0.0.1:25        0.0.0.0:*    users:(("master",pid=1522,fd=13))                                              
+LISTEN 0      511          0.0.0.0:80        0.0.0.0:*    users:(("nginx",pid=1069,fd=6),("nginx",pid=1068,fd=6),("nginx",pid=1066,fd=6))
+LISTEN 0      128          0.0.0.0:22        0.0.0.0:*    users:(("sshd",pid=1007,fd=7))                                                 
+LISTEN 0      4096           [::1]:631          [::]:*    users:(("cupsd",pid=999,fd=7))                                                 
+LISTEN 0      100            [::1]:25           [::]:*    users:(("master",pid=1522,fd=14))                                              
+LISTEN 0      511             [::]:80           [::]:*    users:(("nginx",pid=1069,fd=7),("nginx",pid=1068,fd=7),("nginx",pid=1066,fd=7))
+LISTEN 0      128             [::]:22           [::]:*    users:(("sshd",pid=1007,fd=8))                                                 

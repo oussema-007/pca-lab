@@ -1,0 +1,32 @@
+======== app01
+-- app01 2026-11-07T20:36:37+01:00 default target: multi-user.target
+Filesystem             Size  Used Avail Use% Mounted on
+/dev/mapper/rhel-root   44G   21G   23G  48% /
+-- docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+-- ss -tlnp
+State  Recv-Q Send-Q Local Address:Port Peer Address:PortProcess                        
+LISTEN 0      128          0.0.0.0:22        0.0.0.0:*    users:(("sshd",pid=1136,fd=7))
+LISTEN 0      128             [::]:22           [::]:*    users:(("sshd",pid=1136,fd=8))
+-- wazuh/ossec/groq processes (by command name):
+(end)
+-- leftover packages:
+none
+-- firewalld: services=cockpit dhcpv6-client ssh ports=
+======== lb01
+-- lb01 2026-11-07T20:36:40+01:00 default target: multi-user.target
+Filesystem             Size  Used Avail Use% Mounted on
+/dev/mapper/rhel-root   22G  5.5G   16G  26% /
+-- docker ps -a
+docker not installed
+-- ss -tlnp
+State  Recv-Q Send-Q Local Address:Port Peer Address:PortProcess                        
+LISTEN 0      128          0.0.0.0:22        0.0.0.0:*    users:(("sshd",pid=1007,fd=7))
+LISTEN 0      128             [::]:22           [::]:*    users:(("sshd",pid=1007,fd=8))
+-- wazuh/ossec/groq processes (by command name):
+(end)
+-- leftover packages:
+none
+-- firewalld: services=cockpit dhcpv6-client ssh ports=
+======== kali: wazuh procs
+none

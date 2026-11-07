@@ -1,0 +1,41 @@
+Filesystem             Size  Used Avail Use% Mounted on
+/dev/mapper/rhel-root   44G   41G  2.8G  94% /
+
+NAMES                           IMAGE                          STATUS
+single-node-wazuh.dashboard-1   wazuh/wazuh-dashboard:4.14.6   Exited (137) 10 minutes ago
+single-node-wazuh.indexer-1     wazuh/wazuh-indexer:4.14.6     Exited (143) 10 minutes ago
+single-node-wazuh.manager-1     wazuh/wazuh-manager:4.14.6     Exited (0) 10 minutes ago
+
+NAME                STATUS              CONFIG FILES
+single-node         exited(3)           /home/ouss/wazuh-docker/single-node/docker-compose.yml
+
+wazuh/wazuh-manager:4.14.6 2.5GB
+wazuh/wazuh-indexer:4.14.6 2.5GB
+wazuh/wazuh-dashboard:4.14.6 2.05GB
+hello-world:latest 21.8kB
+wazuh/wazuh-certs-generator:0.0.4 433MB
+DRIVER    VOLUME NAME
+local     single-node_filebeat_etc
+local     single-node_filebeat_var
+local     single-node_wazuh-dashboard-config
+local     single-node_wazuh-dashboard-custom
+local     single-node_wazuh-indexer-data
+local     single-node_wazuh_active_response
+local     single-node_wazuh_agentless
+local     single-node_wazuh_api_configuration
+local     single-node_wazuh_etc
+local     single-node_wazuh_integrations
+local     single-node_wazuh_logs
+local     single-node_wazuh_queue
+local     single-node_wazuh_var_multigroups
+local     single-node_wazuh_wodles
+NETWORK ID     NAME                  DRIVER    SCOPE
+525aaaef21ca   bridge                bridge    local
+24ce1a24c230   host                  host      local
+575fea24196e   none                  null      local
+1104ade4c544   single-node_default   bridge    local
+TYPE            TOTAL     ACTIVE    SIZE      RECLAIMABLE
+Images          5         3         7.037GB   432.6MB (6%)
+Containers      3         0         91.34MB   91.34MB (100%)
+Local Volumes   14        14        12.42GB   0B (0%)
+Build Cache     0         0         0B        0B

@@ -1,0 +1,26 @@
++ cd /home/ouss/wazuh-docker/single-node
++ sudo docker compose down -v --rmi all --remove-orphans
++ tail -5
+ Volume single-node_wazuh_api_configuration Removed 
+ Volume single-node_wazuh_agentless Removed 
+ Image wazuh/wazuh-dashboard:4.14.6 Removed 
+ Image wazuh/wazuh-manager:4.14.6 Removed 
+ Image wazuh/wazuh-indexer:4.14.6 Removed 
++ cd /
++ grep -i -E 'wazuh|single-node|filebeat'
++ xargs -r sudo docker volume rm
++ sudo docker volume ls -q
++ xargs -r sudo docker network rm
++ sudo docker network ls -q --filter name=single-node
++ tail -2
++ sudo docker system prune -a --volumes -f
+
+Total reclaimed space: 432.6MB
++ sudo rm -rf /home/ouss/wazuh-docker
++ sudo dnf clean all -q
++ sudo journalctl --vacuum-size=200M
++ tail -1
+Vacuuming done, freed 0B of archived journals from /run/log/journal.
++ df -h /
+Filesystem             Size  Used Avail Use% Mounted on
+/dev/mapper/rhel-root   44G   21G   23G  48% /

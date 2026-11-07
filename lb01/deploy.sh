@@ -3,7 +3,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 source ./.secrets
-RATE_LIMIT=${RATE_LIMIT:-200}     # requests per 10 s per source IP (see DECISIONS.md)
+RATE_LIMIT=${RATE_LIMIT:-100}     # requests per 10 s per source IP; a full cold browser login = 33 requests (see DECISIONS.md)
 H=lb01
 ./pki/make_pki.sh >/dev/null
 STAGE=$(mktemp -d); trap 'rm -rf "$STAGE"' EXIT; chmod 700 "$STAGE"

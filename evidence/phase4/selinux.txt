@@ -1,5 +1,8 @@
 haproxy_connect_any --> on
-system_u:object_r:etc_t:s0 /etc/haproxy/certs/odoo.pca.lab.pem
+            system_u:object_r:etc_t:s0 /etc/haproxy/certs/odoo.pca.lab.pem
+system_u:object_r:haproxy_var_run_t:s0 /run/haproxy/admin.sock
 total 4
 -rw-r-----. 1 root haproxy 1719 Nov  7 21:19 odoo.pca.lab.pem
-AVC: 0
+haproxy AVC denials today: 0
+system_u:system_r:haproxy_t:s0    36478 ?        00:00:00 haproxy
+system_u:system_r:haproxy_t:s0    36677 ?        00:00:01 haproxy

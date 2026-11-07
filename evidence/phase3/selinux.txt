@@ -1,0 +1,10 @@
+SELinux: Enforcing
+docker security options: [name=seccomp,profile=builtin name=selinux name=cgroupns name=no-new-privileges]
+process labels:
+     25 system_u:system_r:container_t:s0:c126,c989
+      4 system_u:system_r:container_t:s0:c245,c579
+      4 system_u:system_r:container_t:s0:c269,c797
+      4 system_u:system_r:container_t:s0:c485,c554
+system_u:object_r:container_file_t:s0 /opt/pca-odoo/config/odoo.conf
+AVC denials in last 10 min: 217 (all from BEFORE the :Z -> :z fix, all on odoo.conf, see DECISIONS.md)
+Last AVC denial timestamp: 21:13:09 (during the :Z->:z recreate). AVC denials since 21:13:43: 0 (checked at 21:16:13, includes the phase-3 check run)

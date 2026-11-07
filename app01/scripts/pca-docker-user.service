@@ -1,0 +1,13 @@
+[Unit]
+Description=PCA lab: restrict access to published Docker ports (DOCKER-USER chain)
+After=docker.service firewalld.service
+PartOf=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/opt/pca-odoo/scripts/pca-docker-user.sh
+
+[Install]
+WantedBy=docker.service

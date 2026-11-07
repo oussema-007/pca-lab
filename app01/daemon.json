@@ -1,0 +1,6 @@
+{
+  "selinux-enabled": true,
+  "log-driver": "journald",
+  "live-restore": false,
+  "no-new-privileges": true
+}

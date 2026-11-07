@@ -1,0 +1,32 @@
+### 2026-11-07T21:15:28+01:00 health from lb01 (allowed)
+GET http://192.168.100.10:8069/web/health -> {"status": "pass"} HTTP 200
+GET http://192.168.100.10:8169/web/health -> {"status": "pass"} HTTP 200
+GET http://192.168.100.10:8269/web/health -> {"status": "pass"} HTTP 200
+### health from kali (must be refused)
+kali -> 192.168.100.10:8069 : curl: (7) Failed to connect to 192.168.100.10 port 8069 after 1 ms: Could not connect to server
+kali -> 192.168.100.10:8169 : curl: (7) Failed to connect to 192.168.100.10 port 8169 after 0 ms: Could not connect to server
+kali -> 192.168.100.10:8269 : curl: (7) Failed to connect to 192.168.100.10 port 8269 after 0 ms: Could not connect to server
+kali -> 192.168.100.10:8072 : curl: (7) Failed to connect to 192.168.100.10 port 8072 after 0 ms: Could not connect to server
+kali -> 192.168.100.10:8172 : curl: (7) Failed to connect to 192.168.100.10 port 8172 after 0 ms: Could not connect to server
+kali -> 192.168.100.10:8272 : curl: (7) Failed to connect to 192.168.100.10 port 8272 after 0 ms: Could not connect to server
+### PostgreSQL not published: 0 listeners on :5432 on the host
+### login as vendeur1 on each node (from lb01) + search_read sale.order
+port 8069: authenticate -> uid/name = 8 Vendeur 1 ; sale.order count visible = 20
+port 8169: authenticate -> uid/name = 8 Vendeur 1 ; sale.order count visible = 20
+port 8269: authenticate -> uid/name = 8 Vendeur 1 ; sale.order count visible = 20
+### session shared between nodes: login on odoo-1, reuse cookie on odoo-3
+session from 8069 used on 8169 -> uid 8 vendeur1
+session from 8069 used on 8269 -> uid 8 vendeur1
+### containers
+NAMES     STATUS                        PORTS
+odoo-3    Up 2 minutes (healthy)        8071/tcp, 192.168.100.10:8269->8069/tcp, 192.168.100.10:8272->8072/tcp
+odoo-1    Up 2 minutes (healthy)        192.168.100.10:8069->8069/tcp, 192.168.100.10:8072->8072/tcp, 8071/tcp
+odoo-2    Up About a minute (healthy)   8071/tcp, 192.168.100.10:8169->8069/tcp, 192.168.100.10:8172->8072/tcp
+pca-db    Up 4 minutes (healthy)        5432/tcp
+NAME      MEM USAGE / LIMIT   CPU %
+odoo-3    308.6MiB / 800MiB   8.53%
+odoo-1    370.8MiB / 800MiB   0.00%
+odoo-2    304.3MiB / 800MiB   1.19%
+pca-db    76.25MiB / 512MiB   12.44%
+               total        used        free      shared  buff/cache   available
+Mem:           4.8Gi       1.9Gi       2.1Gi        38Mi       1.1Gi       2.9Gi

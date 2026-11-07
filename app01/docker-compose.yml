@@ -12,7 +12,7 @@ x-odoo: &odoo
   command: ["odoo", "-c", "/etc/odoo/odoo.conf"]
   volumes:
     - odoo-data:/var/lib/odoo                      # ONE shared filestore + sessions for all nodes
-    - ./config/odoo.conf:/etc/odoo/odoo.conf:ro,Z
+    - ./config/odoo.conf:/etc/odoo/odoo.conf:ro,z    # :z = shared label (3 containers read it); :Z would be private to one
   mem_limit: 800m
   memswap_limit: 1g
   cpus: 2

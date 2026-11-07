@@ -1,0 +1,5 @@
+# BEFORE fix (2026-11-07T21:04:56+01:00): kali 192.168.100.30 reaches app01 published ports despite firewalld rich rules (Docker DNAT+FORWARD bypasses zone INPUT rules)
+kali -> 192.168.100.10:8069 => 200
+kali -> 192.168.100.10:8169 => 200
+kali -> 192.168.100.10:8269 => 200
+kali -> 192.168.100.10:8072 => 200

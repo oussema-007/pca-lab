@@ -17,3 +17,9 @@ Format: date - decision - reason.
 - 2026-11-07 - Also disabled on both VMs: `cups` (printing, not needed on servers) and `avahi-daemon` (mDNS, still advertised `rhel-wazuh.local`). Smaller attack surface, less RAM.
 - 2026-11-07 - app01 boot target set to `multi-user.target` and switched live (`systemctl isolate`): GDM off saves ~0.7 GB RAM for Odoo.
 - 2026-11-07 - `/etc/hosts` handled by `tools/set_hosts.sh` with a marked block (idempotent); unrelated entries on kali from other labs are left alone.
+
+## Phase 2
+- 2026-11-07 - sshd hardening in `/etc/ssh/sshd_config.d/01-pca-hardening.conf` (sorted before `50-redhat.conf`, first value wins). Old `99-logsentinel.conf` replaced (backup in `/root/pca-backup/sshd_config.d/`). Also `AllowTcpForwarding no`: no tunnels are needed in this lab.
+- 2026-11-07 - firewalld: kept zone `public` (target default = REJECT, so blocked clients get an immediate "connection refused", easy to show) and removed every open service (ssh, cockpit, dhcpv6-client, http) in favour of source-filtered rich rules. All rules for later phases (Odoo ports from lb01, 80/443/8404 on lb01) are created by the same idempotent `tools/firewall.sh` with a dead-man rollback timer.
+- 2026-11-07 - app01 security update brought a new kernel and glibc, so app01 was rebooted once **before** deploying Odoo (rule 10: change requires it).
+- 2026-11-07 - lb01 not updated (no repo access, B1). The RHEL 9.6 DVD is older than the installed 9.8 packages, so it can't be used for updates.

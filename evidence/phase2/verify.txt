@@ -1,0 +1,79 @@
+== app01 2026-11-07T20:52:59+01:00 kernel 5.14.0-687.66.1.el9_8.x86_64
+-- SELinux: Enforcing (config: SELINUX=enforcing)
+-- firewalld: active, default zone public
+  services: 
+  ports: 
+  forward-ports: 
+  source-ports: 
+  rich rules: 
+	rule family="ipv4" source address="192.168.100.30" service name="ssh" accept
+	rule family="ipv4" source address="192.168.100.20" port port="8269" protocol="tcp" accept
+	rule family="ipv4" source address="192.168.100.20" port port="8272" protocol="tcp" accept
+	rule family="ipv4" source address="192.168.100.20" port port="8072" protocol="tcp" accept
+	rule family="ipv4" source address="192.168.100.20" port port="8169" protocol="tcp" accept
+	rule family="ipv4" source address="192.168.100.20" port port="8069" protocol="tcp" accept
+	rule family="ipv4" source address="192.168.100.20" port port="8172" protocol="tcp" accept
+-- sshd effective:
+logingracetime 30
+maxauthtries 3
+permitrootlogin no
+pubkeyauthentication yes
+passwordauthentication no
+kbdinteractiveauthentication no
+x11forwarding no
+allowtcpforwarding no
+-- chrony: active
+Reference ID    : C40A343A (ntp4.inx.net.za)
+System time     : 0.000164158 seconds slow of NTP time
+Leap status     : Normal
+-- disabled services:
+   cups: disabled/inactive
+   avahi-daemon: disabled/inactive
+   cockpit.socket: disabled/inactive
+-- default target: multi-user.target
+-- listening:
+   0.0.0.0:22
+   [::]:22
+== lb01 2026-11-07T20:53:02+01:00 kernel 5.14.0-687.54.1.el9_8.x86_64
+-- SELinux: Enforcing (config: SELINUX=enforcing)
+-- firewalld: active, default zone public
+  services: 
+  ports: 
+  forward-ports: 
+  source-ports: 
+  rich rules: 
+	rule family="ipv4" source address="192.168.100.0/24" service name="http" accept
+	rule family="ipv4" source address="192.168.100.30" port port="8404" protocol="tcp" accept
+	rule family="ipv4" source address="192.168.100.30" service name="ssh" accept
+	rule family="ipv4" source address="192.168.100.0/24" service name="https" accept
+-- sshd effective:
+logingracetime 30
+maxauthtries 3
+permitrootlogin no
+pubkeyauthentication yes
+passwordauthentication no
+kbdinteractiveauthentication no
+x11forwarding no
+allowtcpforwarding no
+-- chrony: active
+Reference ID    : 66CDF001 (flapping.cloudhive.net.za)
+System time     : 0.000053501 seconds fast of NTP time
+Leap status     : Normal
+-- disabled services:
+   cups: disabled/inactive
+   avahi-daemon: disabled/inactive
+   cockpit.socket: disabled/inactive
+-- default target: multi-user.target
+-- listening:
+   0.0.0.0:22
+   [::]:22
+== negative test: password auth refused
+Permission denied (publickey,gssapi-keyex,gssapi-with-mic).
+== negative test: root login refused
+Permission denied (publickey,gssapi-keyex,gssapi-with-mic).
+== negative test: SSH to app01 NAT IP from kali NAT IP (not 192.168.100.30) must be rejected
+== negative test: TCP/22 from kali's NAT address 192.168.13.137 (not in the allow-list)
+$ curl --interface 192.168.13.137 telnet://192.168.13.136:22
+curl: (7) Failed to connect to 192.168.13.136 port 22 after 3 ms: Could not connect to server
+$ curl --interface 192.168.13.137 telnet://192.168.13.138:22
+curl: (7) Failed to connect to 192.168.13.138 port 22 after 5 ms: Could not connect to server

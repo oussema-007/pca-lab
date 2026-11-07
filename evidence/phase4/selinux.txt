@@ -1,0 +1,5 @@
+haproxy_connect_any --> on
+system_u:object_r:etc_t:s0 /etc/haproxy/certs/odoo.pca.lab.pem
+total 4
+-rw-r-----. 1 root haproxy 1719 Nov  7 21:19 odoo.pca.lab.pem
+AVC: 0

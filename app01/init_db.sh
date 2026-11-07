@@ -29,6 +29,7 @@ for login, pw, name in [('vendeur1', os.environ['V1'], 'Vendeur 1'), ('vendeur2'
 ICP = env['ir.config_parameter'].sudo()
 ICP.set_param('web.base.url', 'https://odoo.pca.lab')
 ICP.set_param('web.base.url.freeze', 'True')
+ICP.set_param('auth_signup.invitation_scope', 'b2b')   # no public self-registration on an ERP
 print('COUNTS sale.order=%d res.partner=%d product=%d demo=%s' % (env['sale.order'].search_count([]), env['res.partner'].search_count([]), env['product.product'].search_count([]), env.ref('base.module_base').demo))
 env.cr.commit()
 PY

@@ -3,3 +3,4 @@ pki/*.key
 pki/private/
 *.key
 results/raw/*.tmp
+pki/*.pem

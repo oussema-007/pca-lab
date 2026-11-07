@@ -54,6 +54,7 @@ frontend fe_https
     http-request capture req.cook(SRV) len 8
     http-request capture sc_http_req_rate(0) len 6
     http-request deny deny_status 429 if !loadtest too_fast
+    http-request set-var(txn.trusted) bool(true) if loadtest
     http-request del-header @@LOADTEST_HEADER_NAME@@          # never forwarded to Odoo
     # Odoo database manager is never reachable from the outside (defence in depth with list_db=False)
     http-request deny deny_status 403 if { path_beg /web/database }
@@ -65,6 +66,8 @@ frontend fe_https
     http-response set-header Referrer-Policy strict-origin-when-cross-origin
     http-response del-header Server
     http-response del-header X-Powered-By
+    # which backend server answered: only shown to trusted test clients (scenario probes), never to normal users
+    http-response set-header X-PCA-Server %s if { var(txn.trusted) -m bool }
 
     # --- routing ---------------------------------------------------------
     acl is_ws path_beg /websocket
@@ -79,6 +82,12 @@ backend be_odoo
     http-check send meth GET uri /web/health ver HTTP/1.1 hdr Host odoo.pca.lab
     http-check expect status 200
     cookie SRV insert indirect nocache httponly secure
+    # failover without user-visible errors:
+    #  - redispatch on EVERY retry (default = only the last one, after ~1 s turn-around delays on the dead server)
+    #  - L7 retry when the server died before sending a single byte (worker killed / node stopping)
+    option redispatch 1
+    retry-on conn-failure empty-response
+    option http-buffer-request         # whole request buffered first: required to replay it (and blocks slow-POST)
     default-server inter 2s fall 3 rise 2 maxconn 32 check
     server odoo1 192.168.100.10:8069 cookie odoo1
     server odoo2 192.168.100.10:8169 cookie odoo2

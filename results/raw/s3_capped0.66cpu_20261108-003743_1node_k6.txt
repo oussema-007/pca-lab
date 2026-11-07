@@ -1,0 +1,2 @@
+k6: reqs=13652 rps=219.2 p95=285.8ms failed=12805 (93.796%) rpc_errors=9605
+time="2026-11-08T00:39:32+01:00" level=error msg="thresholds on metrics 'http_req_failed' have been crossed"

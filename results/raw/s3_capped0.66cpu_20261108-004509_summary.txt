@@ -1,0 +1,2 @@
+1node rps=293.7 p95_ms=282.2 reqs=18524 failed=17529 rpc_errors=13150 app01_cpu_busy=35.6% kali_cpu_busy=42.3% split: odoo1=995 odoo2=0 odoo3=0 
+3nodes rps=40.0 p95_ms=413.5 reqs=2508 failed=0 rpc_errors=0 app01_cpu_busy=93.7% kali_cpu_busy=31.2% split: odoo1=832 odoo2=848 odoo3=828 

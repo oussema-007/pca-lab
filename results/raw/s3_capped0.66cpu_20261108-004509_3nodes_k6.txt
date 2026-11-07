@@ -1,0 +1,1 @@
+k6: reqs=2508 rps=40.0 p95=413.5ms failed=0 (0.000%) rpc_errors=0

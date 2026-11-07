@@ -1,0 +1,2 @@
+k6: reqs=3437 rps=29.4 p95=62.1ms failed=0 (0.000%) rpc_errors=0
+time="2026-11-07T21:50:00+01:00" level=error msg="test run was aborted because k6 received a 'interrupt' signal"

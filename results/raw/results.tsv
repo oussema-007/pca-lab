@@ -1,0 +1,11 @@
+S1	20261107-213430	stop	detect_ms=6097	detect_log_ms=6722	probe_failed_pct=0.211	probe_max_gap_ms=1979	k6_failed=0(0%)	session_lost=0	recovery_ms=7742	servers=odoo1->odoo2	PASS
+S1	20261107-213701	stop	detect_ms=6144	detect_log_ms=5958	probe_failed_pct=0.211	probe_max_gap_ms=1043	k6_failed=0(0%)	session_lost=0	recovery_ms=7722	servers=odoo1->odoo3	PASS
+S1	20261107-213942	stop	detect_ms=6913	detect_log_ms=6746	probe_failed_pct=0.211	probe_max_gap_ms=1119	k6_failed=0(0%)	session_lost=0	recovery_ms=8630	servers=odoo1->odoo3	PASS
+S1	20261107-214132	kill	detect_ms=6053	detect_log_ms=6406	probe_failed_pct=0.0	probe_max_gap_ms=1153	k6_failed=0(0%)	session_lost=0	recovery_ms=7768	servers=odoo1->odoo3	PASS
+S1	20261107-214354	stop	detect_ms=5498	detect_log_ms=6033	probe_failed_pct=0.211	probe_max_gap_ms=1026	k6_failed=0(0%)	session_lost=0	recovery_ms=7686	servers=odoo1->odoo3	PASS
+S2	20261107-214752	rolling	window_ms=92001	k6_reqs=3437	k6_failed=0	rpc_errors=0	probe=0/571_failed	probe_max_gap_ms=1143	k6_p95=62.1	servers=odoo3->odoo2	PASS
+S3	20261107-215343	shared	VUs=12,think=0,60s	1node_rps=0.8	1node_p95=139.7	1node_err=0.62209	1node_cpu=77.4%	3nodes_rps=62.6	3nodes_p95=414.6	3nodes_err=0	3nodes_cpu=92.8%	gain=x78.25	p95_ratio=2.97	INVALID(host suspended ~2h45 during run, Odoo workers killed by limit_time_real on clock jump)
+S3	20261108-003743	capped0.66cpu	VUs=12,think=0,60s	1node_rps=219.2	1node_p95=285.8	1node_err=0.93796	1node_cpu=41.1%	3nodes_rps=27.9	3nodes_p95=635.2	3nodes_err=0	3nodes_cpu=92.5%	gain=x0.13	p95_ratio=2.22	INVALID(host suspended ~2h45 during run, Odoo workers killed by limit_time_real on clock jump)
+S3	20261108-004151	shared	VUs=12,think=0,60s	1node_rps=44.2	1node_p95=380.6	1node_err=0	1node_cpu=91.1%	3nodes_rps=40.3	3nodes_p95=415.7	3nodes_err=0	3nodes_cpu=93.9%	gain=x0.91	p95_ratio=1.09
+S3	20261108-004509	capped0.66cpu	VUs=12,think=0,60s	1node_rps=293.7	1node_p95=282.2	1node_err=0.94629	1node_cpu=35.6%	3nodes_rps=40.0	3nodes_p95=413.5	3nodes_err=0	3nodes_cpu=93.7%	gain=x0.14	p95_ratio=1.47
+S3	20261107-215004	shared	VUs=12,think=0,60s	1node_ok_rps=106.3	1node_rps=106.3	1node_p95=142.7	1node_err=0	1node_cpu=93.1%	3nodes_ok_rps=90.0	3nodes_rps=90.0	3nodes_p95=182.8	3nodes_err=0	3nodes_cpu=94.5%	gain=x0.85	p95_ratio=1.28	NOTE(first run, before host suspend; per-server split not reset in this version of the script)

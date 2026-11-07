@@ -4,3 +4,4 @@ pki/private/
 *.key
 results/raw/*.tmp
 pki/*.pem
+results/raw/.s4.*

@@ -1,0 +1,15 @@
+top - 21:53:14 up  1:00,  0 users,  load average: 5.56, 3.06, 1.89
+Tasks: 286 total,   1 running, 285 sleeping,   0 stopped,   0 zombie
+%Cpu(s): 11.8 us, 11.8 sy,  0.0 ni, 70.6 id,  0.0 wa,  2.9 hi,  2.9 si,  0.0 st
+MiB Mem :   4902.4 total,   1943.3 free,   2138.1 used,   1187.7 buff/cache
+MiB Swap:   5120.0 total,   5120.0 free,      0.0 used.   2764.2 avail Mem 
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+  92964 101       20   0  273220 136348  29728 S  11.8   2.7   0:05.62 python3
+  94749 101       20   0  291108 141388  12028 S  11.8   2.8   0:19.01 odoo
+  54037 root      20   0 2495512 111676  67096 S   5.9   2.2   0:33.49 dockerd
+  93062 systemd+  20   0  225932  24012  19652 S   5.9   0.5   0:00.26 postgres
+  98054 ouss      20   0  236168   7532   5956 R   5.9   0.2   0:00.02 top
+      1 root      20   0  110944  18756  11208 S   0.0   0.4   0:12.30 systemd
+      2 root      20   0       0      0      0 S   0.0   0.0   0:00.04 kthreadd
+      3 root      20   0       0      0      0 S   0.0   0.0   0:00.00 pool_wo+

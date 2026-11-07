@@ -1,0 +1,4 @@
+node	drain_to_idle_ms	recreate_to_healthy_ms	ready_to_UP_ms	node_total_ms	old_container	new_container
+odoo1	8397	6107	307	25795	d58b7c418075	2f3de213f648
+odoo2	1474	6080	2389	18758	888ab092d8f5	8bf47b65324b
+odoo3	14373	7098	1471	32428	943bb8cb3741	67e8874ab145

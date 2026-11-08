@@ -124,7 +124,9 @@ raw files are in `results/raw/<scenario>_<timestamp>_*`.
 | `./scenarios/s3_scaleout.sh` (`CPU_PER_NODE=0.66` for independent-node emulation) | scalability: 1 vs 3 nodes, req/s, p95, CPU | ~4 min |
 | `./scenarios/s4_rate_limit.sh` | edge security: 429 above 100 req/10 s/IP, backend protected, exempt load test | ~1.5 min |
 | `./scenarios/s5_lb_visibility.sh` | observability: state machine, logs, stats, Prometheus for a hung node | ~1 min |
-| `./scenarios/run_all.sh` | all of the above in sequence | ~15 min |
+| `./scenarios/run_all.sh` | S1–S5 in sequence | ~15 min |
+| `./scenarios/s6_db_failover.sh` (phase 6) | DB tier: replication lag (RPO), primary crash, manual promotion (RTO), automatic restore | ~2 min |
+| `./scenarios/demo_watch.sh` | live view for the demo: one user request every 200 ms, status, latency, node | — |
 
 Useful one-liners during a demo:
 
@@ -134,6 +136,16 @@ ssh lb01 'echo "set server be_odoo/odoo2 state drain" | sudo socat stdio /run/ha
 ssh lb01 'sudo journalctl -u haproxy -f -o cat | grep -v WARNING'
 firefox http://lb01:8404/stats      # user/password in .secrets
 ```
+
+## Phase 6 (stretch, done)
+
+- **PostgreSQL streaming replica** `pca-db-replica` (service `db-replica` in `app01/docker-compose.yml`): async, physical slot
+  `replica1`, bootstrapped by `app01/scripts/replica-entrypoint.sh` (pg_basebackup), primary-side role/slot/pg_hba applied by
+  `deploy.sh`. Promotion runbook = `scenarios/s6_db_failover.sh` (promote, give the replica the Docker DNS alias `db`, Odoo reconnects).
+- **Prometheus + Grafana on kali** (podman, bound to 127.0.0.1): `./monitoring/up.sh` / `./monitoring/down.sh`.
+  Prometheus scrapes HAProxy's built-in exporter `http://lb01:8404/metrics` every 2 s; Grafana `http://127.0.0.1:3000`
+  (anonymous viewer, admin password in `.secrets`) opens the provisioned dashboard "PCA lab — HAProxy / Odoo"
+  (server state timeline DOWN/UP/DRAIN/MAINT, req/s per node, responses by class, 429s, retries/redispatches, sessions, latency).
 
 ## Reset / recovery
 

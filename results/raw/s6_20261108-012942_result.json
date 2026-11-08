@@ -1,0 +1,17 @@
+{
+ "scenario": "S6",
+ "ts": "20261108-012942",
+ "replay_lag_max_ms": "3.69",
+ "replay_lag_avg_ms": "0.92",
+ "lag_max_bytes": "0",
+ "ack_last_id": "208",
+ "replica_last_id": "208",
+ "lost_rows": "0",
+ "rpo_ms": "0",
+ "promote_ms": "2813",
+ "crash_to_db_switched_ms": "5954",
+ "crash_to_odoo_ok_ms": "6869",
+ "probe_failed": "27/195",
+ "probe_max_gap_ms": "5598",
+ "replica_after_restore": "streaming"
+}

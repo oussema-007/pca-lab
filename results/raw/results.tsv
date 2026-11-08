@@ -21,3 +21,5 @@ S5	20261108-011235	hang(docker pause)	detect_ms=10329	recovery_ms=3764	log_trans
 S1	20261108-012304	stop	detect_after_exit_ms=2795	exit_ms=3416	detect_from_cmd_ms=6199	detect_log_ms=6805	probe_failed_pct=0.212	probe_max_gap_ms=1351	k6_failed=0(0%)	session_lost=0	recovery_ms=8092	servers=odoo1->odoo3	PASS
 S1	20261108-012500	stop	detect_after_exit_ms=2860	exit_ms=3316	detect_from_cmd_ms=6168	detect_log_ms=6400	probe_failed_pct=0.211	probe_max_gap_ms=1395	k6_failed=0(0%)	session_lost=0	recovery_ms=8243	servers=odoo1->odoo3	PASS
 S1	20261108-012657	kill	detect_after_exit_ms=4492	exit_ms=1655	detect_from_cmd_ms=6137	detect_log_ms=6731	probe_failed_pct=0.0	probe_max_gap_ms=1249	k6_failed=0(0%)	session_lost=0	recovery_ms=7935	servers=odoo1->odoo3	PASS
+S6	20261108-012942	db-failover	replay_lag_max_ms=3.69	lag_avg_ms=0.92	lost_rows=0	rpo_ms=0	promote_ms=2813	crash_to_db_ms=5954	crash_to_odoo_ok_ms=6869	probe_failed=27/195	after_restore=streaming	PASS
+S6	20261108-013143	db-failover	replay_lag_max_ms=5.65	lag_avg_ms=1.33	lost_rows=0	rpo_ms=0	promote_ms=1542	crash_to_db_ms=4694	crash_to_odoo_ok_ms=5387	probe_failed=21/185	after_restore=streaming	PASS

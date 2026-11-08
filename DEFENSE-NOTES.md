@@ -20,9 +20,10 @@ Si le nœud tombe, `option redispatch` ignore le cookie et envoie ailleurs. Opti
 
 ### 3. Que signifie `inter 2s fall 3 rise 2` pour le RTO ?
 Un check toutes les 2 s ; 3 échecs consécutifs → DOWN ; 2 succès → UP. Pour un nœud qui **crashe** (port fermé, échec immédiat)
-la détection est ≈ 3 × 2 s = 4–6 s (mesuré ≈ 6 s en S1). Pour un nœud **figé** (process gelé), chaque check attend
-`timeout check 2s` → ≈ 3 × (2 + 2) s ≈ 12 s (mesuré ≈ 12,7 s en S5). Retour en service : 2 checks OK ≈ 2–4 s après que
-le conteneur répond. Mais surtout, **le RTO vu par l'utilisateur n'est pas le temps de détection** : pendant la détection,
+la détection est ≈ 3 × 2 s = 4–6 s (mesuré : 2,8–4,5 s après l'arrêt effectif du conteneur, ≈ 6 s après la commande, S1). Pour un nœud **figé** (process gelé), chaque check attend
+`timeout check 2s` → ≈ 3 × (2 + 2) s ≈ 12 s (mesuré 10,3–12,7 s en S5). Retour en service : 2 checks OK ≈ 2–4 s après que
+le conteneur répond (≈ 8 s après `docker start`), puis `slowstart 15s` remonte son poids progressivement car un worker Odoo
+« froid » est lent (on a mesuré des requêtes de 12–15 s et un nœud qui oscillait DOWN/UP avant d'ajouter warm-up + slowstart). Mais surtout, **le RTO vu par l'utilisateur n'est pas le temps de détection** : pendant la détection,
 les requêtes qui échouent sur le nœud mort sont rejouées ailleurs (retry + redispatch), d'où 0 erreur k6 en S1.
 Compromis : un `inter` plus court détecte plus vite mais génère plus de checks et plus de faux positifs sous charge.
 
@@ -83,7 +84,8 @@ on suivrait aussi la session/le login.
 Ce sont nos **points uniques de défaillance assumés** (voir `SMCA-MAPPING.md`) : lb01 seul, app01 seule VM, PostgreSQL sans bascule
 automatique. En production : 2 HAProxy en **keepalived/VRRP** avec une VIP (bascule en ~1–3 s), nœuds Odoo sur ≥ 2 hôtes,
 PostgreSQL en **Patroni** (+ etcd) ou réplique streaming avec promotion, filestore sur stockage partagé (NFS/Ceph/S3).
-En phase 6 on montre une réplique streaming PostgreSQL et sa promotion manuelle (RPO/RTO mesurés).
+En phase 6 on montre une réplique streaming PostgreSQL et sa promotion manuelle : lag ≈ 1 ms, 0 ligne validée perdue au crash
+du primaire, promotion 1,5–2,8 s, Odoo de nouveau servi 5,4–6,9 s après le crash (runbook scripté ; un humain mettrait des minutes).
 
 ### 13. Comment l'état est-il partagé entre les 3 nœuds ?
 Tout l'état métier est dans PostgreSQL (une seule base), les fichiers joints et sessions dans un seul volume Docker monté

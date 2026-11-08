@@ -1,0 +1,14 @@
+ application_name | client_addr |   state   | sync_state |    write_lag    |   replay_lag    
+------------------+-------------+-----------+------------+-----------------+-----------------
+ walreceiver      | 172.18.0.6  | streaming | async      | 00:00:00.000225 | 00:00:00.002995
+(1 row)
+
+NAME             MEM USAGE / LIMIT
+pca-db-replica   23.26MiB / 384MiB
+odoo-3           379.8MiB / 800MiB
+odoo-2           371.9MiB / 800MiB
+odoo-1           370.4MiB / 800MiB
+pca-db           89.57MiB / 512MiB
+               total        used        free      shared  buff/cache   available
+Mem:            4902        2320        1143         131        1931        2581
+Swap:           5119           0        5119

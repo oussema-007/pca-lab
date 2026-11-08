@@ -19,5 +19,5 @@ podman run -d --name pca-grafana --network host --memory 300m --restart unless-s
   -e GF_ANALYTICS_REPORTING_ENABLED=false -e GF_ANALYTICS_CHECK_FOR_UPDATES=false \
   -v "$M/grafana/provisioning:/etc/grafana/provisioning:ro,Z" -v "$M/grafana/dashboards:/var/lib/grafana/dashboards:ro,Z" \
   -v pca-grafana:/var/lib/grafana/data $GRAF >/dev/null
-for i in $(seq 1 60); do curl -fsS -o /dev/null http://127.0.0.1:3000/api/health && break; sleep 1; done
+for i in $(seq 1 60); do curl -fs -o /dev/null http://127.0.0.1:3000/api/health && break; sleep 1; done
 echo "Prometheus http://127.0.0.1:9090  Grafana http://127.0.0.1:3000 (anonymous viewer; admin password in .secrets)"

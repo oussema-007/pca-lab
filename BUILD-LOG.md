@@ -95,7 +95,7 @@ Conventions: `[kali]`, `[app01]`, `[lb01]` = where a command ran. From kali, VMs
    `no such file or directory: .../scratchpad/inv.sh`. Fix: the script was put in the repo instead (`tools/inventory.sh`),
    which is also the rule (repo = source of truth).
 2. `ls /etc/ssh/sshd_config.d/` → `Permission denied` without sudo (directory mode 700). Fix: `sudo ls` / `sudo sh -c`.
-3. lb01 `subscription-manager status`: *Consumer profile "1674ab66-…" has been deleted from the server*; dnf metadata
+3. lb01 `subscription-manager status`: *Consumer profile "<redacted-consumer-id>" has been deleted from the server*; dnf metadata
    download → HTTP 403. Rule 4 forbids registration → **BLOCKERS B1**. Workaround chosen: the RHEL 9.6 DVD already attached
    to lb01 as `/dev/sr1` (found with `lsblk`) used as a local repo in phase 4.
 

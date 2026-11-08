@@ -55,7 +55,7 @@ public (active)
 sudo: docker: command not found
 sudo: docker: command not found
 ### subscription
-Consumer profile "1674ab66-fad7-41b0-adde-5461da13270d" has been deleted from the server. You can use command clean or unregister to remove local profile.
+Consumer profile "<redacted-consumer-id>" has been deleted from the server. You can use command clean or unregister to remove local profile.
 ### dnf repolist
 repo id                          repo name
 rhel-9-for-x86_64-appstream-rpms Red Hat Enterprise Linux 9 for x86_64 - AppStream (RPMs)

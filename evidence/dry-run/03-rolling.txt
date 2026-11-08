@@ -1,0 +1,18 @@
+[01:50:29.811] [odoo1] drain
+[01:50:32.997] [odoo1] idle after 2529 ms -> maint
+[01:50:34.570] [odoo1] recreate container odoo-1 (simulated update)
+[01:50:55.346] [odoo1] healthy after 6211 ms (container dd1977019d75 -> 044a31547e71), warmed up -> ready
+[01:50:57.894] [odoo1] UP in HAProxy after 919 ms
+[01:51:03.810] [odoo2] drain
+[01:51:07.666] [odoo2] idle after 3168 ms -> maint
+[01:51:09.202] [odoo2] recreate container odoo-2 (simulated update)
+[01:51:30.187] [odoo2] healthy after 6115 ms (container 22f3bf8adc29 -> 0d3de59d3b33), warmed up -> ready
+[01:51:32.648] [odoo2] UP in HAProxy after 926 ms
+[01:51:39.625] [odoo3] drain
+[01:51:41.196] [odoo3] idle after 926 ms -> maint
+[01:51:42.733] [odoo3] recreate container odoo-3 (simulated update)
+[01:52:03.376] [odoo3] healthy after 6183 ms (container 88d02b82feec -> d8d5652edbeb), warmed up -> ready
+[01:52:05.860] [odoo3] UP in HAProxy after 1479 ms
+VERDICT S2 PASS: 3 nodes replaced one by one in 101 s; k6 3772 requests, 0 failed, 0 RPC errors; user probe 0/627 failed, max gap 1273 ms, path odoo3->odoo1
+--- demo_watch: lines=748 errors=0 nodes=node=odoo3 node=odoo1 
+section 3 took 151 s

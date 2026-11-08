@@ -23,3 +23,5 @@ S1	20261108-012500	stop	detect_after_exit_ms=2860	exit_ms=3316	detect_from_cmd_m
 S1	20261108-012657	kill	detect_after_exit_ms=4492	exit_ms=1655	detect_from_cmd_ms=6137	detect_log_ms=6731	probe_failed_pct=0.0	probe_max_gap_ms=1249	k6_failed=0(0%)	session_lost=0	recovery_ms=7935	servers=odoo1->odoo3	PASS
 S6	20261108-012942	db-failover	replay_lag_max_ms=3.69	lag_avg_ms=0.92	lost_rows=0	rpo_ms=0	promote_ms=2813	crash_to_db_ms=5954	crash_to_odoo_ok_ms=6869	probe_failed=27/195	after_restore=streaming	PASS
 S6	20261108-013143	db-failover	replay_lag_max_ms=5.65	lag_avg_ms=1.33	lost_rows=0	rpo_ms=0	promote_ms=1542	crash_to_db_ms=4694	crash_to_odoo_ok_ms=5387	probe_failed=21/185	after_restore=streaming	PASS
+S4	20261108-014737	burst=600/par20	limit=100	200=100	429=500	other=0	first429=#85	backend_saw=100	exempt=300_200	after=200/303/200	PASS
+S2	20261108-014954	rolling	window_ms=101856	k6_reqs=3772	k6_failed=0	rpc_errors=0	probe=0/627_failed	probe_max_gap_ms=1273	k6_p95=76.8	servers=odoo3->odoo1	PASS

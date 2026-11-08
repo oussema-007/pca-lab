@@ -1,0 +1,30 @@
+--- section 5 one-liner
+# pxname    svname    scur  stot   wredis  status  check_status
+fe_http     FRONTEND  0     2              OPEN    
+fe_https    FRONTEND  1     1141           OPEN    
+be_odoo     odoo1     0     5555   7       UP      L7OK
+be_odoo     odoo2     0     6412   1       UP      L7OK
+be_odoo     odoo3     0     7549   2       UP      L7OK
+be_odoo     BACKEND   0     19506  10      UP      
+be_odoo_ws  odoo1     0     1      0       UP      L7OK
+be_odoo_ws  odoo2     0     0      0       UP      L7OK
+be_odoo_ws  odoo3     0     0      0       UP      L7OK
+be_odoo_ws  BACKEND   0     1      0       UP      
+stats       FRONTEND  1     3              OPEN    
+stats page: 200  grafana: 200
+RESULTS.md present
+SMCA-MAPPING.md present
+README.md present
+--- recovery: clear table
+
+rc=0
+--- recovery: haproxy restart
+active
+service back after 513 ms
+--- recovery: restart all 3 odoo nodes
+ Container odoo-2 Started 
+first 200 after 14085 ms
+--- recovery: compose up -d + reset
+ Container pca-db Healthy 
+RESET OK: 4 containers healthy, 6/6 HAProxy servers UP, stick-table cleared (01:53:22)
+section 5 + recovery took 42 s

@@ -1,0 +1,22 @@
+HTTP/1.1 301 Moved Permanently
+content-length: 0
+location: https://odoo.pca.lab/
+strict-transport-security: max-age=31536000; includeSubDomains
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+referrer-policy: strict-origin-when-cross-origin
+set-cookie: SRV=odoo1; path=/; HttpOnly; Secure
+403
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+  0      0   0      0   0      0      0      0                              0
+curl: (7) Failed to connect to 192.168.100.10 port 8069 after 0 ms: Could not connect to server
+
+[01:47:54.539] S4: burst of 600 GET /web/login, 20 in parallel, no exemption header (limit: 100 req / 10 s / IP)
+[01:48:08.527] burst done in 13307 ms: 200=100 429=500 other=0, first 429 at response #85; backend received 100 requests
+[01:48:08.532] same burst size from the exempt test client (secret header): 
+[01:48:16.644]    exempt 300 requests ->     300 200 
+[01:48:20.751]    wrong header value, 150 requests (tracked like any client -> throttled above the limit) ->     150 429 
+[01:48:32.875] after the burst: GET /web/login=200 POST /web/login=303 GET /web=200
+VERDICT S4 PASS: 600-request burst -> 100 x 200, 500 x 429 (first at #85, limit 100/10s), backend saw only 100; exempt client:     300 200 ; normal login afterwards 200/303/200
+section 1 took 56 s

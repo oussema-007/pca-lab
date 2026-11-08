@@ -1,0 +1,52 @@
+== 2026-11-08T01:46:44+01:00 prep
+** WARNING: connection is not using a post-quantum key exchange algorithm.
+** This session may be vulnerable to "store now, decrypt later" attacks.
+** The server may need to be upgraded. See https://openssh.com/pq.html
+** WARNING: connection is not using a post-quantum key exchange algorithm.
+** This session may be vulnerable to "store now, decrypt later" attacks.
+** The server may need to be upgraded. See https://openssh.com/pq.html
+SSH-OK
+[01:46:45.983] reset: docker compose up -d on app01
+ Container pca-db Healthy 
+RESET OK: 4 containers healthy, 6/6 HAProxy servers UP, stick-table cleared (01:47:01)
+### 2026-11-08T01:47:01+01:00
+### 1. health through the LB with the system trust store (no -k)
+{"status": "pass"}  -> HTTP 200, TLS verify result=0, 2
+### 2. certificate presented
+subject=C=TN, O=PCA Lab, CN=odoo.pca.lab issuer=C=TN, O=PCA Lab, CN=PCA Lab Root CA X509v3 Subject Alternative Name:      DNS:odoo.pca.lab, DNS:lb01.pca.lab, IP Address:192.168.100.20 
+    TLS 1.1 refused: yes
+### 3. HTTP -> HTTPS redirect
+  http://odoo.pca.lab/ -> 301 Location: https://odoo.pca.lab/
+### 4. security headers on /web/login
+  strict-transport-security: max-age=31536000; includeSubDomains
+  x-content-type-options: nosniff
+  x-frame-options: SAMEORIGIN
+  referrer-policy: strict-origin-when-cross-origin
+  set-cookie: SRV=odoo1; path=/; HttpOnly; Secure
+### 5. round robin: 30 requests without cookie -> server cookie assigned
+       11 SRV=odoo1
+        8 SRV=odoo2
+       11 SRV=odoo3
+### 6. persistence: same cookie -> same server (10 requests with SRV=odoo2)
+200 200 200 200 200 200 200 200 200 200 
+### 7. form login through the public URL (as a browser does: GET /web/login, csrf, POST)
+  POST /web/login -> 303 redirect=https://odoo.pca.lab/web
+  session_info: uid=8 login=vendeur1 db=pca_demo
+  GET /web#action=sale.action_orders (web client) -> 200
+  server cookie for this browser session: odoo2
+### 8. websocket upgrade on /websocket (be_odoo_ws, gevent port)
+  -> HTTP 101
+### 9. database manager blocked at the edge
+  /web/database/manager -> 403
+### 10. stats page (kali only, auth)
+--- zone C log follow (8 s test, with a drain to trigger output)
+** WARNING: connection is not using a post-quantum key exchange algorithm.
+** This session may be vulnerable to "store now, decrypt later" attacks.
+** The server may need to be upgraded. See https://openssh.com/pq.html
+192.168.100.30:52936 [08/Nov/2026:01:47:07.455] fe_https~ be_odoo_ws/odoo1 0/0/2/10/5013 101 429 ---- 2/1/0/0/0 0/0 {odoo2|47} C0A8641E:CEC8_C0A86414:01BB_6AEFC68B_470D:FF5F "GET /websocket"
+
+
+[WARNING]  (65375) : Server be_odoo/odoo3 is UP/READY (leaving forced maintenance).
+Server be_odoo/odoo3 is UP/READY (leaving forced maintenance).
+--- grafana: 200
+prep took 38 s

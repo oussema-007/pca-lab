@@ -5,7 +5,8 @@ Réponses courtes et vérifiables. Les chiffres viennent de [`RESULTS.md`](RESUL
 
 ### 1. Pourquoi `roundrobin` et pas `leastconn` pour Odoo ?
 Les requêtes HTTP d'Odoo sont courtes et homogènes (RPC JSON de quelques dizaines de ms) et les 3 nœuds sont identiques.
-Le round-robin répartit exactement (mesuré : 10/10/10 sur 30 nouvelles sessions) et reste prévisible pour la démo.
+Le round-robin répartit équitablement (mesuré : 10/10/10 sur 30 nouvelles sessions, 11/8/11 lors de la répétition — l'écart vient
+des autres requêtes en cours et du `slowstart` d'un nœud récemment redémarré) et reste prévisible pour la démo.
 `leastconn` sert quand les connexions durent longtemps ou ont des coûts très variables : c'est pourquoi **le backend
 websocket `be_odoo_ws` est en `leastconn`** (connexions jusqu'à 1 h). De plus `maxconn 32` par serveur fait la file d'attente
 dans HAProxy plutôt que dans Odoo, ce qui lisse déjà la charge.

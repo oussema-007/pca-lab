@@ -1,0 +1,32 @@
+01:48:50 docker kill odoo-2
+odoo-2
+01:48:53 odoo2 UP L7OK
+01:48:54 odoo2 UP 2/3 L4CON
+01:48:55 odoo2 UP 1/3 L4CON
+01:48:57 odoo2 UP 1/3 L4CON
+01:48:58 odoo2 DOWN L4CON
+01:48:59 odoo2 DOWN L4CON
+01:49:01 odoo2 DOWN L4CON
+01:49:02 odoo2 DOWN L4CON
+01:49:03 odoo2 DOWN L4CON
+01:49:05 odoo2 DOWN L4CON
+01:49:06 odoo2 DOWN L4CON
+01:49:07 odoo2 DOWN L4CON
+01:49:09 odoo2 DOWN L4CON
+01:49:10 odoo2 DOWN L4CON
+01:49:11 docker start odoo-2
+odoo-2
+01:49:13 odoo2 DOWN L4CON
+01:49:14 odoo2 DOWN L4CON
+01:49:16 odoo2 DOWN 1/2 L7OK
+01:49:17 odoo2 DOWN 1/2 L7OK
+01:49:18 odoo2 UP L7OK
+--- demo_watch: lines=300 errors=0
+probe: logged in as vendeur2 uid=9 on odoo2
+01:48:45.574  [32mOK [0m  HTTP 200     10.2 ms  node=odoo2  
+01:48:45.774  [32mOK [0m  HTTP 200     12.2 ms  node=odoo2  
+32-01:48:51.577  [32mOK [0m  HTTP 200     19.5 ms  node=odoo2  
+33:01:48:51.785  [32mOK [0m  HTTP 200     21.1 ms  node=odoo1  
+34:01:48:51.974  [32mOK [0m  HTTP 200      9.9 ms  node=odoo1  
+35:01:48:52.174  [32mOK [0m  HTTP 200    928.7 ms  node=odoo1  
+section 2 took 61 s

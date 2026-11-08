@@ -33,3 +33,14 @@ k6json(){ # file -> "reqs rps p95 failed_rate failed_count rpc_errors"
 d=json.load(open(sys.argv[1]))["metrics"]
 g=lambda m,k,default=0: d.get(m,{}).get("values",{}).get(k,default)
 print(int(g("http_reqs","count")), round(g("http_reqs","rate"),1), round(g("http_req_duration","p(95)"),1), round(g("http_req_failed","rate"),5), int(g("http_req_failed","passes")), int(g("rpc_errors","count")))' "$1"; }
+# Warm a node before it takes traffic: direct requests from lb01 (the only host allowed to reach the backends)
+# load templates, registry and caches in BOTH workers, so the first real users and health checks are not slow.
+warm_node(){ # n = 1..3
+  local port=$(( 8069 + ($1 - 1) * 100 ))
+  ssh -q lb01 "PW='$PCA_PW1' P=$port bash -s" <<'W'
+for i in 1 2 3 4; do curl -s -o /dev/null -m 60 -H 'Host: odoo.pca.lab' http://192.168.100.10:$P/web/login & done; wait
+for i in 1 2 3 4; do (j=$(mktemp); curl -s -o /dev/null -m 60 -c $j -H 'Host: odoo.pca.lab' -H 'Content-Type: application/json' \
+  -d "{\"jsonrpc\":\"2.0\",\"params\":{\"db\":\"pca_demo\",\"login\":\"vendeur1\",\"password\":\"$PW\"}}" http://192.168.100.10:$P/web/session/authenticate
+  curl -s -o /dev/null -m 60 -b $j -H 'Host: odoo.pca.lab' http://192.168.100.10:$P/web; shred -u $j) & done; wait
+W
+}

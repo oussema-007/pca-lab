@@ -1,0 +1,6 @@
+nproc=2
+               total        used        free      shared  buff/cache   available
+Mem:            4902        2364        1745         126        1274        2538
+/odoo-1 NanoCpus=660000000
+/odoo-2 NanoCpus=660000000
+/odoo-3 NanoCpus=660000000

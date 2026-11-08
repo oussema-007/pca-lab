@@ -1,0 +1,450 @@
+{
+ "uid": "pca-haproxy",
+ "title": "PCA lab \u2014 HAProxy / Odoo",
+ "schemaVersion": 39,
+ "version": 1,
+ "refresh": "5s",
+ "time": {
+  "from": "now-15m",
+  "to": "now"
+ },
+ "timezone": "browser",
+ "tags": [
+  "pca"
+ ],
+ "panels": [
+  {
+   "type": "state-timeline",
+   "title": "Server state (be_odoo / be_odoo_ws) \u2014 DOWN / UP / DRAIN / MAINT",
+   "gridPos": {
+    "x": 0,
+    "y": 0,
+    "w": 24,
+    "h": 7
+   },
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prom"
+   },
+   "targets": [
+    {
+     "expr": "haproxy_server_status{proxy=\"be_odoo\",state=\"UP\"} * 1 + ignoring(state) haproxy_server_status{proxy=\"be_odoo\",state=\"DRAIN\"} * 2 + ignoring(state) haproxy_server_status{proxy=\"be_odoo\",state=\"MAINT\"} * 3",
+     "legendFormat": "http {{server}}",
+     "refId": "A"
+    },
+    {
+     "expr": "haproxy_server_status{proxy=\"be_odoo_ws\",state=\"UP\"} * 1 + ignoring(state) haproxy_server_status{proxy=\"be_odoo_ws\",state=\"DRAIN\"} * 2 + ignoring(state) haproxy_server_status{proxy=\"be_odoo_ws\",state=\"MAINT\"} * 3",
+     "legendFormat": "ws {{server}}",
+     "refId": "B"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "mappings": [
+      {
+       "type": "value",
+       "options": {
+        "0": {
+         "text": "DOWN",
+         "color": "red",
+         "index": 0
+        },
+        "1": {
+         "text": "UP",
+         "color": "green",
+         "index": 1
+        },
+        "2": {
+         "text": "DRAIN",
+         "color": "blue",
+         "index": 2
+        },
+        "3": {
+         "text": "MAINT",
+         "color": "orange",
+         "index": 3
+        }
+       }
+      }
+     ],
+     "color": {
+      "mode": "thresholds"
+     },
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "red",
+        "value": null
+       },
+       {
+        "color": "green",
+        "value": 1
+       },
+       {
+        "color": "blue",
+        "value": 2
+       },
+       {
+        "color": "orange",
+        "value": 3
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "showValue": "never",
+    "mergeValues": true,
+    "rowHeight": 0.8
+   }
+  },
+  {
+   "type": "timeseries",
+   "title": "Requests/s per Odoo node",
+   "gridPos": {
+    "x": 0,
+    "y": 7,
+    "w": 12,
+    "h": 8
+   },
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prom"
+   },
+   "targets": [
+    {
+     "expr": "sum by (server) (rate(haproxy_server_http_responses_total{proxy=\"be_odoo\"}[10s]))",
+     "legendFormat": "{{server}}",
+     "refId": "A"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "custom": {
+      "lineWidth": 2,
+      "fillOpacity": 10,
+      "stacking": {
+       "mode": "normal"
+      }
+     },
+     "unit": "reqps"
+    },
+    "overrides": []
+   },
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom"
+    },
+    "tooltip": {
+     "mode": "multi"
+    }
+   }
+  },
+  {
+   "type": "timeseries",
+   "title": "Responses at the edge (fe_https) by class",
+   "gridPos": {
+    "x": 12,
+    "y": 7,
+    "w": 12,
+    "h": 8
+   },
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prom"
+   },
+   "targets": [
+    {
+     "expr": "sum by (code) (rate(haproxy_frontend_http_responses_total{proxy=\"fe_https\"}[10s]))",
+     "legendFormat": "{{code}}",
+     "refId": "A"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "custom": {
+      "lineWidth": 2,
+      "fillOpacity": 10,
+      "stacking": {
+       "mode": "none"
+      }
+     },
+     "unit": "reqps"
+    },
+    "overrides": []
+   },
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom"
+    },
+    "tooltip": {
+     "mode": "multi"
+    }
+   }
+  },
+  {
+   "type": "timeseries",
+   "title": "Rate-limited / denied requests (429, 403)",
+   "gridPos": {
+    "x": 0,
+    "y": 15,
+    "w": 12,
+    "h": 8
+   },
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prom"
+   },
+   "targets": [
+    {
+     "expr": "rate(haproxy_frontend_requests_denied_total{proxy=\"fe_https\"}[10s])",
+     "legendFormat": "denied/s",
+     "refId": "A"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "custom": {
+      "lineWidth": 2,
+      "fillOpacity": 10,
+      "stacking": {
+       "mode": "none"
+      }
+     },
+     "unit": "reqps"
+    },
+    "overrides": []
+   },
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom"
+    },
+    "tooltip": {
+     "mode": "multi"
+    }
+   }
+  },
+  {
+   "type": "timeseries",
+   "title": "Retries and redispatches (failover at work)",
+   "gridPos": {
+    "x": 12,
+    "y": 15,
+    "w": 12,
+    "h": 8
+   },
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prom"
+   },
+   "targets": [
+    {
+     "expr": "sum by (server) (increase(haproxy_server_redispatch_warnings_total{proxy=\"be_odoo\"}[30s]))",
+     "legendFormat": "redispatch {{server}}",
+     "refId": "A"
+    },
+    {
+     "expr": "sum by (server) (increase(haproxy_server_retry_warnings_total{proxy=\"be_odoo\"}[30s]))",
+     "legendFormat": "retry {{server}}",
+     "refId": "B"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "custom": {
+      "lineWidth": 2,
+      "fillOpacity": 10,
+      "stacking": {
+       "mode": "none"
+      }
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom"
+    },
+    "tooltip": {
+     "mode": "multi"
+    }
+   }
+  },
+  {
+   "type": "timeseries",
+   "title": "Current sessions per node",
+   "gridPos": {
+    "x": 0,
+    "y": 23,
+    "w": 12,
+    "h": 8
+   },
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prom"
+   },
+   "targets": [
+    {
+     "expr": "haproxy_server_current_sessions{proxy=~\"be_odoo|be_odoo_ws\"}",
+     "legendFormat": "{{proxy}} {{server}}",
+     "refId": "A"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "custom": {
+      "lineWidth": 2,
+      "fillOpacity": 10,
+      "stacking": {
+       "mode": "none"
+      }
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom"
+    },
+    "tooltip": {
+     "mode": "multi"
+    }
+   }
+  },
+  {
+   "type": "timeseries",
+   "title": "Avg response time per node (last 1024 req)",
+   "gridPos": {
+    "x": 12,
+    "y": 23,
+    "w": 12,
+    "h": 8
+   },
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prom"
+   },
+   "targets": [
+    {
+     "expr": "haproxy_server_response_time_average_seconds{proxy=\"be_odoo\"}",
+     "legendFormat": "{{server}}",
+     "refId": "A"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "custom": {
+      "lineWidth": 2,
+      "fillOpacity": 10,
+      "stacking": {
+       "mode": "none"
+      }
+     },
+     "unit": "s"
+    },
+    "overrides": []
+   },
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom"
+    },
+    "tooltip": {
+     "mode": "multi"
+    }
+   }
+  },
+  {
+   "type": "timeseries",
+   "title": "Health check duration",
+   "gridPos": {
+    "x": 0,
+    "y": 31,
+    "w": 12,
+    "h": 8
+   },
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prom"
+   },
+   "targets": [
+    {
+     "expr": "haproxy_server_check_duration_seconds{proxy=\"be_odoo\"}",
+     "legendFormat": "{{server}}",
+     "refId": "A"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "custom": {
+      "lineWidth": 2,
+      "fillOpacity": 10,
+      "stacking": {
+       "mode": "none"
+      }
+     },
+     "unit": "s"
+    },
+    "overrides": []
+   },
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom"
+    },
+    "tooltip": {
+     "mode": "multi"
+    }
+   }
+  },
+  {
+   "type": "timeseries",
+   "title": "Server state changes (cumulated)",
+   "gridPos": {
+    "x": 12,
+    "y": 31,
+    "w": 12,
+    "h": 8
+   },
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prom"
+   },
+   "targets": [
+    {
+     "expr": "haproxy_server_check_up_down_total{proxy=\"be_odoo\"}",
+     "legendFormat": "{{server}}",
+     "refId": "A"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "custom": {
+      "lineWidth": 2,
+      "fillOpacity": 10,
+      "stacking": {
+       "mode": "none"
+      }
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom"
+    },
+    "tooltip": {
+     "mode": "multi"
+    }
+   }
+  }
+ ]
+}

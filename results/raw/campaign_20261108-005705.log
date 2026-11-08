@@ -1,0 +1,8 @@
+VERDICT S1[stop] FAIL: detection 10220 ms (HAProxy log 9820 ms), user probe failed 0.211% max gap 2836 ms, k6 failed 0 (0%), session lost 0x, path odoo1->odoo3, back in LB 17405 ms after restart
+VERDICT S1[kill] PASS: detection 7507 ms (HAProxy log 7649 ms), user probe failed 0.0% max gap 1260 ms, k6 failed 0 (0%), session lost 0x, path odoo3, back in LB 16390 ms after restart
+VERDICT S2 PASS: 3 nodes replaced one by one in 155 s; k6 4017 requests, 0 failed, 0 RPC errors; user probe 0/833 failed, max gap 1382 ms, path odoo3->odoo1
+VERDICT S3[shared] DONE: 1 node 52.9 successful req/s (raw 52.9, error rate 0) p95 283.0 ms (app01 CPU 91.6%) -> 3 nodes 43.6 successful req/s (error rate 0) p95 395.5 ms (CPU 94.1%): successful throughput x0.82, p95 x1.4 (app01 has 2 vCPU)
+VERDICT S3[capped0.66cpu] DONE: 1 node 15.7 successful req/s (raw 224.8, error rate 0.93014) p95 362.5 ms (app01 CPU 36.3%) -> 3 nodes 27.3 successful req/s (error rate 0) p95 598.5 ms (CPU 91.7%): successful throughput x1.74, p95 x1.65 (app01 has 2 vCPU)
+VERDICT S4 PASS: 600-request burst -> 175 x 200, 425 x 429 (first at #175, limit 100/10s), backend saw only 175; exempt client:     300 200 ; normal login afterwards 200/303/200
+VERDICT S5 PASS: hung node detected DOWN in 10329 ms, back UP 3764 ms after unpause; state sequence: UP,* L7OK UP 2/3,L7TOUT UP 2/3,* L7TOUT UP 1/3,L7TOUT UP 1/3,* L7TOUT DOWN,L7TOUT DOWN 1/2,L7OK UP,L7OK ; 4 log transitions; stats CSV/HTML + Prometheus captured
+RESET OK: 4 containers healthy, 6/6 HAProxy servers UP, stick-table cleared (01:13:15)

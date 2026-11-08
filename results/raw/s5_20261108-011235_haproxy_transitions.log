@@ -1,0 +1,4 @@
+2026-11-08T01:12:57.362878+0100 lb01 haproxy[53343]: Server be_odoo/odoo3 is DOWN, reason: Layer7 timeout, check duration: 2003ms. 2 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+2026-11-08T01:12:58.258920+0100 lb01 haproxy[53343]: Server be_odoo_ws/odoo3 is DOWN, reason: Layer7 timeout, check duration: 2003ms. 2 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+2026-11-08T01:13:01.923077+0100 lb01 haproxy[53343]: Server be_odoo/odoo3 is UP, reason: Layer7 check passed, code: 200, check duration: 51ms. 3 active and 0 backup servers online. 0 sessions requeued, 0 total in queue.
+2026-11-08T01:13:02.420079+0100 lb01 haproxy[53343]: Server be_odoo_ws/odoo3 is UP, reason: Layer7 check passed, code: 200, check duration: 82ms. 3 active and 0 backup servers online. 0 sessions requeued, 0 total in queue.

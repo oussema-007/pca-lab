@@ -11,3 +11,13 @@ S3	20261108-004509	capped0.66cpu	VUs=12,think=0,60s	1node_rps=293.7	1node_p95=28
 S3	20261107-215004	shared	VUs=12,think=0,60s	1node_ok_rps=106.3	1node_rps=106.3	1node_p95=142.7	1node_err=0	1node_cpu=93.1%	3nodes_ok_rps=90.0	3nodes_rps=90.0	3nodes_p95=182.8	3nodes_err=0	3nodes_cpu=94.5%	gain=x0.85	p95_ratio=1.28	NOTE(first run, before host suspend; per-server split not reset in this version of the script)
 S4	20261108-005430	burst=600/par20	limit=100	200=100	429=500	other=0	first429=#85	backend_saw=100	exempt=300_200	after=200/303/200	PASS
 S5	20261108-005616	hang(docker pause)	detect_ms=12661	recovery_ms=4379	log_transitions=4	states=UP,L7OK|UP,*|L7OK|UP|2/3,L7TOUT|UP|2/3,*|L7TOUT|UP|1/3,L7TOUT|UP|1/3,*|L7TOUT|DOWN,L7TOUT|DOWN|1/2,L7OK|UP,L7OK	PASS
+S1	20261108-005706	stop	detect_ms=10220	detect_log_ms=9820	probe_failed_pct=0.211	probe_max_gap_ms=2836	k6_failed=0(0%)	session_lost=0	recovery_ms=17405	servers=odoo1->odoo3	FAIL
+S1	20261108-005903	kill	detect_ms=7507	detect_log_ms=7649	probe_failed_pct=0.0	probe_max_gap_ms=1260	k6_failed=0(0%)	session_lost=0	recovery_ms=16390	servers=odoo3	PASS
+S2	20261108-010106	rolling	window_ms=155472	k6_reqs=4017	k6_failed=0	rpc_errors=0	probe=0/833_failed	probe_max_gap_ms=1382	k6_p95=187.4	servers=odoo3->odoo1	PASS
+S3	20261108-010421	shared	VUs=12,think=0,60s	1node_ok_rps=52.9	1node_rps=52.9	1node_p95=283.0	1node_err=0	1node_cpu=91.6%	3nodes_ok_rps=43.6	3nodes_rps=43.6	3nodes_p95=395.5	3nodes_err=0	3nodes_cpu=94.1%	gain=x0.82	p95_ratio=1.4
+S3	20261108-010741	capped0.66cpu	VUs=12,think=0,60s	1node_ok_rps=15.7	1node_rps=224.8	1node_p95=362.5	1node_err=0.93014	1node_cpu=36.3%	3nodes_ok_rps=27.3	3nodes_rps=27.3	3nodes_p95=598.5	3nodes_err=0	3nodes_cpu=91.7%	gain=x1.74	p95_ratio=1.65
+S4	20261108-011104	burst=600/par20	limit=100	200=175	429=425	other=0	first429=#175	backend_saw=175	exempt=300_200	after=200/303/200	PASS
+S5	20261108-011235	hang(docker pause)	detect_ms=10329	recovery_ms=3764	log_transitions=4	states=UP,*|L7OK|UP|2/3,L7TOUT|UP|2/3,*|L7TOUT|UP|1/3,L7TOUT|UP|1/3,*|L7TOUT|DOWN,L7TOUT|DOWN|1/2,L7OK|UP,L7OK	PASS
+S1	20261108-012304	stop	detect_after_exit_ms=2795	exit_ms=3416	detect_from_cmd_ms=6199	detect_log_ms=6805	probe_failed_pct=0.212	probe_max_gap_ms=1351	k6_failed=0(0%)	session_lost=0	recovery_ms=8092	servers=odoo1->odoo3	PASS
+S1	20261108-012500	stop	detect_after_exit_ms=2860	exit_ms=3316	detect_from_cmd_ms=6168	detect_log_ms=6400	probe_failed_pct=0.211	probe_max_gap_ms=1395	k6_failed=0(0%)	session_lost=0	recovery_ms=8243	servers=odoo1->odoo3	PASS
+S1	20261108-012657	kill	detect_after_exit_ms=4492	exit_ms=1655	detect_from_cmd_ms=6137	detect_log_ms=6731	probe_failed_pct=0.0	probe_max_gap_ms=1249	k6_failed=0(0%)	session_lost=0	recovery_ms=7935	servers=odoo1->odoo3	PASS

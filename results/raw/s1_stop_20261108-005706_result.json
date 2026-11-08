@@ -1,0 +1,46 @@
+{
+ "scenario": "S1",
+ "mode": "stop",
+ "ts": "20261108-005706",
+ "detect_ms_poll": 10220,
+ "detect_ms_haproxy_log": "9820",
+ "docker_cmd_ms": 11687,
+ "recovery_container_healthy_ms": 13033,
+ "recovery_back_in_lb_ms": 17405,
+ "probe": {
+  "total": 475,
+  "failed": 1,
+  "failed_pct": 0.211,
+  "max_gap_ms": 2836,
+  "p95_ms": 131.0,
+  "max_latency_ms": 1031.9,
+  "server_transitions": [
+   [
+    1794095846821,
+    "odoo1"
+   ],
+   [
+    1794095866257,
+    "odoo3"
+   ]
+  ],
+  "errors": [
+   "RemoteDisconnected"
+  ]
+ },
+ "probe_session_expired": 0,
+ "k6": {
+  "reqs": 2045,
+  "rps": 21.9,
+  "p95_ms": 195.7,
+  "failed": 0,
+  "failed_rate": 0,
+  "rpc_errors": 0
+ },
+ "be_odoo_stats_while_down": [
+  "odoo1 DOWN stot=317 econ=0 eresp=2 retries=0 redispatch=2",
+  "odoo2 UP stot=399 econ=0 eresp=0 retries=0 redispatch=0",
+  "odoo3 UP stot=429 econ=0 eresp=0 retries=0 redispatch=0",
+  "BACKEND UP stot=1143 econ=0 eresp=2 retries=0 redispatch=2"
+ ]
+}

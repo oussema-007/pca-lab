@@ -88,7 +88,8 @@ backend be_odoo
     option redispatch 1
     retry-on conn-failure empty-response
     option http-buffer-request         # whole request buffered first: required to replay it (and blocks slow-POST)
-    default-server inter 2s fall 3 rise 2 maxconn 32 check
+    # slowstart: a node coming back UP ramps its weight over 15 s (cold Odoo workers are slow at first)
+    default-server inter 2s fall 3 rise 2 maxconn 32 slowstart 15s check
     server odoo1 192.168.100.10:8069 cookie odoo1
     server odoo2 192.168.100.10:8169 cookie odoo2
     server odoo3 192.168.100.10:8269 cookie odoo3

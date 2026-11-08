@@ -1,0 +1,37 @@
+{
+ "scenario": "S2",
+ "ts": "20261108-010106",
+ "window_ms": 155472,
+ "probe": {
+  "total": 833,
+  "failed": 0,
+  "failed_pct": 0.0,
+  "max_gap_ms": 1382,
+  "p95_ms": 155.0,
+  "max_latency_ms": 1163.2,
+  "server_transitions": [
+   [
+    1794096090968,
+    "odoo3"
+   ],
+   [
+    1794096209371,
+    "odoo1"
+   ]
+  ],
+  "errors": []
+ },
+ "k6": {
+  "reqs": 4017,
+  "rps": 22.3,
+  "p95_ms": 187.4,
+  "failed": 0,
+  "rpc_errors": 0
+ },
+ "steps": [
+  "node\tdrain_to_idle_ms\trecreate_to_healthy_ms\tready_to_UP_ms\tnode_total_ms\told_container\tnew_container",
+  "odoo1\t2517\t12718\t2340\t39700\t2f3de213f648\tdd1977019d75",
+  "odoo2\t10841\t12966\t1268\t50958\t8bf47b65324b\t22f3bf8adc29",
+  "odoo3\t14223\t13967\t1450\t49758\t67e8874ab145\t88d02b82feec"
+ ]
+}

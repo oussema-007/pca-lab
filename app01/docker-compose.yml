@@ -53,6 +53,33 @@ services:
       driver: journald
       options: { tag: "{{.Name}}" }
 
+  # Phase 6: asynchronous streaming replica (hot standby), promoted manually in scenario s6 (RPO/RTO of the DB tier)
+  db-replica:
+    image: postgres:16
+    container_name: pca-db-replica
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PGPASSWORD: ${REPL_PASSWORD:?missing}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    entrypoint: ["/bin/bash", "/pca/replica-entrypoint.sh"]
+    volumes:
+      - pg-replica:/var/lib/postgresql/data
+      - ./scripts/replica-entrypoint.sh:/pca/replica-entrypoint.sh:ro,z
+    mem_limit: 384m
+    shm_size: 64m
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U odoo -d postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks: [backend]
+    logging:
+      driver: journald
+      options: { tag: "{{.Name}}" }
+
   odoo-1:
     <<: *odoo
     container_name: odoo-1
@@ -72,6 +99,7 @@ services:
 volumes:
   pg-data:
   odoo-data:
+  pg-replica:
 
 networks:
   backend:

@@ -25,7 +25,8 @@ for n in 1 2 3; do
   log "[$s] recreate container $c (simulated update)"; t1=$(now_ms)
   app "cd /opt/pca-odoo && sudo docker compose up -d --no-deps --force-recreate $c 2>&1 | tail -1" >/dev/null
   H=$(wait_healthy $c 240); NEW=$(app "sudo docker inspect -f '{{.Id}}' $c" | cut -c1-12)
-  log "[$s] healthy after $H ms (container $OLD -> $NEW) -> ready"
+  warm_node $n
+  log "[$s] healthy after $H ms (container $OLD -> $NEW), warmed up -> ready"
   for b in be_odoo be_odoo_ws; do hap "set server $b/$s state ready" >/dev/null; done
   U=$(wait_status be_odoo $s '^UP$' 120); wait_status be_odoo_ws $s '^UP$' 120 >/dev/null
   log "[$s] UP in HAProxy after $U ms"

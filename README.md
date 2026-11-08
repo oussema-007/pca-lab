@@ -7,7 +7,7 @@ every config file and script lives here and is deployed to the VMs with `scp`/`s
 
 - Measured results: [`RESULTS.md`](RESULTS.md)
 - Link to continuity objectives (RTO / RPO / availability) and residual risks: [`SMCA-MAPPING.md`](SMCA-MAPPING.md)
-- Jury Q&A: [`DEFENSE-NOTES.md`](DEFENSE-NOTES.md) — Live demo script: [`DEMO-CHECKLIST.md`](DEMO-CHECKLIST.md)
+- Jury Q&A: [`DEFENSE-NOTES.md`](DEFENSE-NOTES.md) — Live demo script (20/11): [`DEMO-CHECKLIST.md`](DEMO-CHECKLIST.md) — 5-min talk (27/11): [`PRESENTATION-27-11.md`](PRESENTATION-27-11.md)
 - Why things are the way they are: [`DECISIONS.md`](DECISIONS.md) — What needs a human: [`BLOCKERS.md`](BLOCKERS.md)
 
 ## Architecture

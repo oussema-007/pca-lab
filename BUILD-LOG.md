@@ -68,7 +68,7 @@ Conventions: `[kali]`, `[app01]`, `[lb01]` = where a command ran. From kali, VMs
 `app01` (user `ouss`) and `lb01` (user `monitored`) defined by the human in `~/.ssh/config`; passwordless sudo came from
 `/etc/sudoers.d/90-pca` (never touched). Most remote commands were sent as `ssh -q <host> '...'` with the script on stdin.
 
-### Phase 0 — Preflight (2026-11-07 20:27–20:31, commit `f6e4764`)
+### Phase 0 — Preflight (2026-11-07 20:27–20:31, commit `3dc7865`)
 
 **Goal.** Verify access, record the real inventory, create `DECISIONS.md`, `BLOCKERS.md`, `.gitignore`, `.secrets`.
 
@@ -185,7 +185,7 @@ CPU on all three: 13th Gen Intel Core i7-13620H (VMware vCPU).
 - lb01: sshd :22, nginx :80, postfix 127.0.0.1:25, cupsd 127.0.0.1:631.
 ```
 
-### Phase 1 — Clean up the old LogSentinel project (20:31–20:36, commit `30550e6`)
+### Phase 1 — Clean up the old LogSentinel project (20:31–20:36, commit `973bddc`)
 
 **Goal.** Free disk on app01 first, remove the Wazuh stack, the Groq AI agent and its secrets, the Wazuh agent and old
 demo services on lb01, set hostnames and `/etc/hosts`.
@@ -334,7 +334,7 @@ none
 none
 ```
 
-### Phase 2 — Baseline hardening (20:36–20:53, commit `4cf5b5f`)
+### Phase 2 — Baseline hardening (20:36–20:53, commit `1c42e4b`)
 
 **Goal.** SELinux enforcing, restrictive firewalld, hardened sshd, security updates, time sync; document each step.
 
@@ -547,7 +547,7 @@ curl: (7) Failed to connect to 192.168.13.138 port 22 after 5 ms: Could not conn
 
 The jury-facing list with justifications is `evidence/phase2/hardening.md`.
 
-### Phase 3 — Odoo stack on app01 (20:53–21:16, commit `fcd4649`)
+### Phase 3 — Odoo stack on app01 (20:53–21:16, commit `90f6a7f`)
 
 **Goal.** 3 × Odoo 17 + PostgreSQL 16 in Docker Compose under `/opt/pca-odoo`, shared filestore/sessions, DB not published,
 ports bound to the lab IP and reachable only from lb01, DB `pca_demo` with sales demo data and two users.
@@ -651,7 +651,7 @@ AVC denials in last 10 min: 217 (all from BEFORE the :Z -> :z fix, all on odoo.c
 Last AVC denial timestamp: 21:13:09 (during the :Z->:z recreate). AVC denials since 21:13:43: 0 (checked at 21:16:13, includes the phase-3 check run)
 ```
 
-### Phase 4 — HAProxy on lb01 (21:16–21:25, commits `1de5303`, `c080fc5`)
+### Phase 4 — HAProxy on lb01 (21:16–21:25, commits `b0ed505`, `d018f6b`)
 
 **Goal.** HAProxy from the RHEL package, local CA and TLS, HTTP→HTTPS, rate limit with exemption, health checks, cookie
 persistence, websocket backend, stats, runtime API, logging, SELinux, firewall.
@@ -823,7 +823,7 @@ system_u:system_r:haproxy_t:s0    36478 ?        00:00:00 haproxy
 system_u:system_r:haproxy_t:s0    36677 ?        00:00:01 haproxy
 ```
 
-### Phase 5 — Demo scenarios (2026-11-07 21:25 → 2026-11-08 01:29, commits `283b3d3`, `1381625`, `c959d96`)
+### Phase 5 — Demo scenarios (2026-11-07 21:25 → 2026-11-08 01:29, commits `c1beca0`, `5cf55d9`, `544ee72`)
 
 **Goal.** k6 + scenario scripts S1–S5 + `reset_lab.sh`, each scenario at least twice, numbers in `results/raw/`.
 
@@ -901,7 +901,7 @@ VERDICT S1[stop] PASS: node stopped serving at +3316 ms, LB detection 2860 ms af
 VERDICT S1[kill] PASS: node stopped serving at +1655 ms, LB detection 4492 ms after that (6137 ms after the command, HAProxy log 6731 ms), user probe failed 0.0% max gap 1249 ms, k6 failed 0 (0%), session lost 0x, path odoo1->odoo3, back in LB 7935 ms after restart
 ```
 
-### Phase 6 — Stretch (01:29–01:37, commit `4ed6cd2`)
+### Phase 6 — Stretch (01:29–01:37, commit `d7ead95`)
 
 **RAM check first** (rule: keep ≥ 600 MB free on app01): app01 2 670 MB available, kali 1 741 MB available.
 
@@ -959,7 +959,7 @@ Mem:            4902        2320        1143         131        1931        2581
 Swap:           5119           0        5119
 ```
 
-### After phase 6 — dry run, presentation, deck (01:46–02:05, commits `0bcb32f`, `111364d`, `a6b0843`)
+### After phase 6 — dry run, presentation, deck (01:46–02:05, commits `cabfcd9`, `1f3be20`, `4f08c89`)
 
 - **Dry run** of `DEMO-CHECKLIST.md` (results in `evidence/dry-run/README.md`): prep 38 s, edge 56 s, node failure 61 s
   (live view 300 lines, 0 errors), rolling update 151 s (0 failed), observability + recovery 42 s (HAProxy restart: service

@@ -1,0 +1,30 @@
+<section id="scalabilite" data-transition="fade" style="background:#F6F5F0;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#B4531A">Bénéfice 4 · Scalabilité</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1">Un résultat honnête</h2>
+</div>
+<div style="display:flex;gap:32px;flex:1">
+<div style="flex:1;display:flex;flex-direction:column;gap:24px;background:#FFFFFF;border:1px solid #E2E0D8;border-radius:16px;padding:48px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:44px;font-weight:700">Même machine, 2 processeurs</h3>
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:24px;color:#4A5568">1 nœud : 53 req/s</p>
+<div style="width:560px;height:48px;background:#8A94A8;border-radius:8px"></div>
+<p style="font-size:24px;color:#4A5568">3 nœuds : 44 req/s</p>
+<div style="width:465px;height:48px;background:#8A94A8;border-radius:8px"></div>
+</div>
+<p style="font-size:32px;line-height:1.4">Pas de gain : le processeur est déjà à 93 % avec un seul nœud.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:24px;background:#FFFFFF;border:1px solid #E2E0D8;border-radius:16px;padding:48px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:44px;font-weight:700">Nœuds indépendants</h3>
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:24px;color:#4A5568">1 nœud : <b style="color:#B4531A">s’effondre, 94 % d’erreurs</b></p>
+<div style="width:560px;height:48px;background:repeating-linear-gradient(45deg, #C45A1C 0px, #C45A1C 12px, #F2D3BF 12px, #F2D3BF 24px);border-radius:8px"></div>
+<p style="font-size:24px;color:#4A5568">3 nœuds : <b style="color:#14213D">0 erreur</b></p>
+<div style="width:560px;height:48px;background:#14213D;border-radius:8px"></div>
+</div>
+<p style="font-size:32px;line-height:1.4">Ajouter un serveur = une ligne de configuration, sans coupure.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6B7280">Scénario S3 : 12 utilisateurs simulés, 60 s ; nœuds indépendants émulés à 0,66 processeur chacun</p>
+<aside>On a aussi mesuré la montée en charge, et on vous donne le résultat honnête : sur une seule machine à deux processeurs, ajouter des copies n’ajoute pas de puissance, le processeur est déjà saturé. Mais quand chaque nœud a sa propre capacité, un seul nœud s’effondre sous la charge alors que trois la tiennent sans aucune erreur. Le load balancer rend l’ajout d’un serveur trivial : une ligne de configuration, sans coupure.</aside>
+</section>

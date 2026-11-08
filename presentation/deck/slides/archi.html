@@ -1,0 +1,33 @@
+<section id="archi" data-transition="fade" style="background:#F6F5F0;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:56px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#B4531A">La solution</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1">Un seul point d’entrée intelligent</h2>
+</div>
+<div style="display:flex;align-items:center;gap:24px">
+<div style="width:250px;display:flex;flex-direction:column;align-items:center;gap:16px;background:#FFFFFF;border:1px solid #E2E0D8;border-radius:16px;padding:32px">
+<x-icon name="Users" style="color:#14213D;width:64px;height:64px"></x-icon>
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:32px;font-weight:700;text-align:center">Utilisateurs</h3>
+<p style="font-size:24px;color:#4A5568;text-align:center">HTTPS</p>
+</div>
+<x-shape kind="arrow-right" style="background:#C9C6BC;width:72px;height:36px"></x-shape>
+<div style="width:380px;display:flex;flex-direction:column;gap:12px;background:#14213D;border-radius:16px;padding:36px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:44px;font-weight:700;color:#F6F5F0">HAProxy</h3>
+<p style="font-size:24px;line-height:1.4;color:#BFC9DC">Chiffrement TLS<br>Contrôle de santé toutes les 2 s<br>Répartition + rejeu des requêtes<br>Limite de débit</p>
+</div>
+<x-shape kind="arrow-right" style="background:#C9C6BC;width:72px;height:36px"></x-shape>
+<div style="width:290px;display:flex;flex-direction:column;gap:16px">
+<p style="font-size:32px;font-weight:600;background:#FFFFFF;border:2px solid #E8894A;border-radius:12px;padding:20px 24px;text-align:center">Odoo 1</p>
+<p style="font-size:32px;font-weight:600;background:#FFFFFF;border:2px solid #E8894A;border-radius:12px;padding:20px 24px;text-align:center">Odoo 2</p>
+<p style="font-size:32px;font-weight:600;background:#FFFFFF;border:2px solid #E8894A;border-radius:12px;padding:20px 24px;text-align:center">Odoo 3</p>
+</div>
+<x-shape kind="arrow-right" style="background:#C9C6BC;width:72px;height:36px"></x-shape>
+<div style="width:300px;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;border:1px solid #E2E0D8;border-radius:16px;padding:32px">
+<x-icon name="Database" style="color:#14213D;width:56px;height:56px"></x-icon>
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:32px;font-weight:700">PostgreSQL</h3>
+<p style="font-size:24px;line-height:1.4;color:#4A5568">+ réplique<br>+ fichiers partagés</p>
+</div>
+</div>
+<p style="font-size:32px;line-height:1.4;color:#4A5568;width:1500px">Trois copies identiques d’Odoo, une seule base : <b style="color:#14213D">n’importe quel nœud sert n’importe quel utilisateur.</b> Les serveurs Odoo ne sont joignables que par le load balancer.</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6B7280">Maquette réelle : 3 VM RHEL 9 durcies (SELinux, pare-feu), Docker, Odoo 17, HAProxy 2.4</p>
+<aside>On a construit une maquette réelle : trois VM. Les utilisateurs n’entrent que par un seul point, HAProxy, qui chiffre la connexion, filtre, et répartit vers trois copies identiques d’Odoo. Elles partagent la même base et les mêmes fichiers : n’importe quel nœud peut servir n’importe quel utilisateur. Les serveurs Odoo ne sont joignables que par le load balancer.</aside>
+</section>

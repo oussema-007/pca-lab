@@ -1,0 +1,22 @@
+<section id="maintenance" data-transition="fade" style="background:#F6F5F0;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#B4531A">Bénéfices 2 et 3 · Maintenance et sécurité</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1">Maintenir et protéger sans couper</h2>
+</div>
+<div style="display:flex;gap:32px;flex:1">
+<div style="flex:1;display:flex;flex-direction:column;gap:20px;background:#FFFFFF;border:1px solid #E2E0D8;border-radius:16px;padding:48px">
+<x-icon name="Wrench" style="color:#14213D;width:56px;height:56px"></x-icon>
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:120px;font-weight:700;line-height:1;color:#C45A1C;white-space:nowrap">0 perdue</p>
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:44px;font-weight:700;line-height:1.2">3 serveurs mis à jour un par un, sous charge</h3>
+<p style="font-size:32px;line-height:1.4;color:#4A5568">Retrait en douceur → mise à jour → retour. Plus de 7 400 requêtes, aucune en échec.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:20px;background:#FFFFFF;border:1px solid #E2E0D8;border-radius:16px;padding:48px">
+<x-icon name="Lock" style="color:#14213D;width:56px;height:56px"></x-icon>
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:120px;font-weight:700;line-height:1;color:#C45A1C;white-space:nowrap">500 / 600</p>
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:44px;font-weight:700;line-height:1.2">requêtes d’une rafale bloquées avant Odoo</h3>
+<p style="font-size:32px;line-height:1.4;color:#4A5568">Limite de débit, HTTPS, en-têtes de sécurité. Un utilisateur normal se connecte juste après.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6B7280">Scénarios S2 (mise à jour progressive, 2 essais) et S4 (limite à 100 requêtes / 10 s par adresse IP)</p>
+<aside>Deuxième bénéfice : la maintenance. On retire un serveur en douceur — il finit ses requêtes en cours — on le met à jour, on le remet. Trois serveurs mis à jour, sous charge : zéro requête perdue. C’est exactement la gestion du changement sans interruption demandée par le SMCA. Troisième bénéfice : la sécurité en bordure. Un script qui martèle la page de connexion est limité : sur 600 requêtes, 500 sont refusées par HAProxy avant même d’atteindre Odoo, et un utilisateur normal se connecte juste après sans problème.</aside>
+</section>

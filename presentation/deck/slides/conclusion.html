@@ -1,0 +1,26 @@
+<section id="conclusion" data-transition="fade" style="background:#F6F5F0;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#B4531A">Limites et conclusion</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1">Les limites et leur réponse en production</h2>
+</div>
+<div style="display:flex;flex-direction:column">
+<div style="display:flex;align-items:center;gap:32px;border-top:2px solid #14213D;padding:24px 0">
+<p style="width:620px;font-size:32px;color:#4A5568">1 seul load balancer</p>
+<x-shape kind="arrow-right" style="background:#C9C6BC;width:56px;height:28px"></x-shape>
+<p style="flex:1;font-size:32px;font-weight:600">Paire keepalived (adresse IP flottante)</p>
+</div>
+<div style="display:flex;align-items:center;gap:32px;border-top:1px solid #C9C6BC;padding:24px 0">
+<p style="width:620px;font-size:32px;color:#4A5568">1 seule machine pour Odoo</p>
+<x-shape kind="arrow-right" style="background:#C9C6BC;width:56px;height:28px"></x-shape>
+<p style="flex:1;font-size:32px;font-weight:600">Nœuds sur plusieurs hôtes</p>
+</div>
+<div style="display:flex;align-items:center;gap:32px;border-top:1px solid #C9C6BC;border-bottom:1px solid #C9C6BC;padding:24px 0">
+<p style="width:620px;font-size:32px;color:#4A5568">Bascule de la base manuelle</p>
+<x-shape kind="arrow-right" style="background:#C9C6BC;width:56px;height:28px"></x-shape>
+<p style="flex:1;font-size:32px;font-weight:600">Patroni (bascule automatique)</p>
+</div>
+</div>
+<div style="flex:1"></div>
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:44px;font-weight:700;line-height:1.25;background:#14213D;color:#F6F5F0;border-radius:16px;padding:40px 48px">Le load balancer transforme pannes et maintenances en non-événements — <span style="color:#F2A46E">et permet de le prouver.</span></p>
+<aside>Soyons honnêtes sur les limites : dans la maquette, le load balancer lui-même, la machine Odoo et la bascule de la base restent des points uniques. En production, on doublerait le load balancer avec keepalived, on répartirait les nœuds sur plusieurs hôtes et on automatiserait la base avec Patroni. Notre conclusion : le load balancer est le maillon qui transforme les pannes et les maintenances en non-événements pour l’utilisateur — et qui permet de le prouver avec des chiffres. Merci.</aside>
+</section>
